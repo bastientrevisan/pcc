@@ -1,14 +1,16 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Main {
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		Class.forName("org.sqlite.JDBC");
-        Connection c = DriverManager.getConnection("jdbc:sqlite:pcc.db");
-        Statement s = c.createStatement();
-        System.out.println("Connexion a PCC avec succès");
-        c.close();
-	}
+    public static int nb_participants = 80;
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        ConnexionBDD c = new ConnexionBDD();
+        c.ConnexionSQLite("pcc.db");
+        //c.InitDatabase(nb_participants);
+        Participants p = new Participants(c);
+        //p.NouveauParticipant();
+        Votes v = new Votes(c);
+        v.NouveauVote();
+        
+    }
 }
